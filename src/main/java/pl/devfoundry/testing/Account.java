@@ -21,7 +21,18 @@ public class Account {
         return defaultDeliveryAddress;
     }
 
+    public Account(Address defaultDeliveryAddress) {
+        this.defaultDeliveryAddress = defaultDeliveryAddress;
+        if(defaultDeliveryAddress != null) {
+            activate();
+        }else{
+            this.active = false;
+        }
+    }
+
     public void setDefaultDeliveryAddress(Address defaultDeliveryAddress) {
         this.defaultDeliveryAddress = defaultDeliveryAddress;
+
+
     }
 }
