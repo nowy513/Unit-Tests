@@ -11,6 +11,6 @@ public class OrderStatusTest {
     @ParameterizedTest
     @EnumSource(OrderStatus.class)
     void allOrderStatusShouldBeShorterThan15Chars(OrderStatus orderStatus){
-        assertThat(orderStatus.toString().length(), lessThan(5));
+        assertThat(orderStatus.toString().length(), lessThan(10));
     }
 }
