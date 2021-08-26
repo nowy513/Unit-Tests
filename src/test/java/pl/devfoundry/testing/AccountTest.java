@@ -4,7 +4,9 @@ import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+//import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumingThat;
 
@@ -20,8 +22,10 @@ class AccountTest {
 
 //        Then
         assertFalse(newAccount.isActive());
-        assertThat(newAccount.isActive()).isFalse();
+//        assertThat(newAccount.isActive()).isFalse();
+        assertThat(newAccount.isActive(), equalTo(false));
     }
+
 
     @Test
     void accountShouldBeActiveAfterActivation(){
@@ -33,7 +37,8 @@ class AccountTest {
 
 //        Then
         assertTrue(newAccount.isActive());
-        assertThat(newAccount.isActive()).isTrue();
+//        assertThat(newAccount.isActive()).isTrue();
+        assertThat(newAccount.isActive(), equalTo(true));
     }
 
     @Test
@@ -47,7 +52,8 @@ class AccountTest {
 
 //        Then
         assertNull(address);
-        assertThat(address).isNull();
+//        assertThat(address).isNull();
+
 
     }
 
@@ -64,8 +70,7 @@ class AccountTest {
 
 //        Then
         assertNotNull(defaultAddress);
-        assertThat(defaultAddress).isNotNull();
-
+//        assertThat(defaultAddress).isNotNull();
     }
 
     @RepeatedTest(5)
@@ -81,5 +86,28 @@ class AccountTest {
         assumingThat(address != null, () -> {
                 assertTrue(account.isActive());
     });
+    }
+
+    @Test
+    void invalidEmailShouldThrowException(){
+
+//        Given
+        Account account = new Account();
+
+//        When
+//        Then
+        assertThrows(IllegalArgumentException.class, () -> account.setEmail("wrongEmail"));
+    }
+
+    @Test
+    void vaildEmailShouldBeSet(){
+
+//        Given
+        Account account = new Account();
+
+//        When
+        account.setEmail("kontakt@devfoundry.pl");
+//        Then
+        assertThat(account.getEmail(), is("kontakt@devfoundry.pl"));
     }
 }

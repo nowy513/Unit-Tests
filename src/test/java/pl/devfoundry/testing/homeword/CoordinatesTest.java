@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CoordinatesTest {
 
+
     @Test
     void constructorShouldNotBeValueAbove100(){
 
@@ -25,32 +26,16 @@ public class CoordinatesTest {
     }
 
     @Test
-    void copyShouldReturnAddCoordinates(){
+    void copyShouldReturnAddCoordinaties(){
 
 //        Given
         Coordinates coordinates = new Coordinates(10, 10);
 
 //        When
-        Coordinates copy = Coordinates.copy(coordinates, 5, 5);
+        Coordinates copy = Coordinates.copy( coordinates, 5, 5);
 
 //        Then
+        assertThat(copy.getY(), is(15));
         assertThat(copy.getX(), equalTo(15));
-        assertThat(copy.getY(), equalTo(15));
-
-    }
-
-    @Test
-    void copyShouldReturnNewObject(){
-
-//        Given
-        Coordinates coordinates = new Coordinates(10, 10);
-
-//        When
-        Coordinates copy = Coordinates.copy(coordinates, 0, 0);
-
-//        Then
-        assertThat(copy, not(sameInstance(coordinates)));
-        assertThat(copy, equalTo(coordinates));
-
     }
 }

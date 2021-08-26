@@ -15,6 +15,7 @@ import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.collection.IsIterableContainingInOrder.contains;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(BeforeAfterExtension.class)
 public class OrderTest {
@@ -94,7 +95,8 @@ public class OrderTest {
         order.addMealToOrder(meal2);
 
 //        Then
-        assertThat(order.getMeals(), contains(meal1, meal2));
+        assertThat(order.getMeals().get(0), is(meal1));
+        assertThat(order.getMeals().get(1), is(meal2));
 
     }
 
@@ -110,5 +112,46 @@ public class OrderTest {
 
 //        Then
         assertThat(meals1, is(meals2));
+    }
+
+    @Test
+    void orderTotalPriceShouldNotExceedMaxInValue(){
+
+        //        Given
+        Meal meal1 = new Meal(Integer.MAX_VALUE, "Burger");
+        Meal meal2 = new Meal(Integer.MAX_VALUE, "Sandwitch");
+
+//        When
+        order.addMealToOrder(meal1);
+        order.addMealToOrder(meal2);
+
+//        Then
+      assertThrows(IllegalStateException.class, () -> order.totalPrice());
+    }
+
+    @Test
+    void emptyOrderTotalPriceShouldEqualZero(){
+
+//        Given
+//        Order is created in BeforeEach
+
+//        Then
+        assertThat(order.totalPrice(), is(0));
+    }
+
+    @Test
+    void cancelingOrderShouldRemoveAllItemsFromMealsList(){
+
+        //        Given
+        Meal meal1 = new Meal(Integer.MAX_VALUE, "Burger");
+        Meal meal2 = new Meal(Integer.MAX_VALUE, "Sandwitch");
+
+//        When
+        order.addMealToOrder(meal1);
+        order.addMealToOrder(meal2);
+        order.cancel();
+
+//        Then
+        assertThat(order.getMeals().size(), is(0));
     }
 }
