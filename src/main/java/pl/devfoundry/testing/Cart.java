@@ -1,5 +1,7 @@
 package pl.devfoundry.testing;
 
+import pl.devfoundry.testing.order.Order;
+
 import java.util.ArrayList;
 import java.util.List;
 
