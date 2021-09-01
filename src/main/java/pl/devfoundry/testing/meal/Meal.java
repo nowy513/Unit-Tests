@@ -1,4 +1,4 @@
-package pl.devfoundry.testing;
+package pl.devfoundry.testing.meal;
 
 import java.util.Objects;
 
@@ -32,6 +32,10 @@ public class Meal {
 
     public int getPrice() {
         return price;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getDiscountedPrice(int discount){
