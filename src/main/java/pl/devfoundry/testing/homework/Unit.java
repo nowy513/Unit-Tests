@@ -86,4 +86,28 @@ public class Unit {
     public int getLoad() {
         return this.currentCargoWeight;
     }
+
+    public static Random getRandom() {
+        return random;
+    }
+
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
+
+    public int getMaxFuel() {
+        return maxFuel;
+    }
+
+    public List<Cargo> getCargo() {
+        return cargo;
+    }
+
+    public int getMaxCargoWeight() {
+        return maxCargoWeight;
+    }
+
+    public int getCurrentCargoWeight() {
+        return currentCargoWeight;
+    }
 }
