@@ -10,6 +10,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.Spy;
+import org.mockito.junit.jupiter.MockitoExtension;
 import pl.devfoundry.testing.extension.IAExceptionIgnoreExtension;
 import pl.devfoundry.testing.order.Order;
 
@@ -27,6 +29,9 @@ import static org.mockito.BDDMockito.*;
 
 
 class MealTest {
+
+    @Spy
+    private Meal mealSpy;
 
     @Test
     void shouldReturnDiscountedPrice() {
@@ -175,6 +180,24 @@ class MealTest {
         int result = meal.sumPrice();
 
 //        Then
+        assertThat(result, equalTo(45));
+
+    }
+
+    @Test
+    @ExtendWith(MockitoExtension.class)
+    void testMealSumPriceWithSpy() {
+
+//            Given
+        given(mealSpy.getPrice()).willReturn(15);
+        given(mealSpy.getQuantity()).willReturn(3);
+
+//        When
+        int result = mealSpy.sumPrice();
+
+//        Then
+        then(mealSpy).should().getPrice();
+        then(mealSpy).should().getQuantity();
         assertThat(result, equalTo(45));
 
     }
