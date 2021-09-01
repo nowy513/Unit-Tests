@@ -22,6 +22,9 @@ import java.util.stream.Stream;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+import static org.mockito.BDDMockito.*;
+
 
 class MealTest {
 
@@ -111,7 +114,7 @@ class MealTest {
     @MethodSource("createCakeNames")
     void cakeNamesShouldEndWithCake(String name){
         assertThat(name, notNullValue());
-        assertThat(name, endsWith("cake"));
+        assertThat(name, notNullValue());
     }
 
     private static Stream<String> createCakeNames(){
@@ -156,6 +159,24 @@ class MealTest {
         }
 
         return dynamicTests;
+    }
+
+    @Test
+    void testMealSumPrice() {
+
+//            Given
+        Meal meal = mock(Meal.class);
+
+        given(meal.getPrice()).willReturn(15);
+        given(meal.getQuantity()).willReturn(3);
+        given(meal.sumPrice()).willCallRealMethod();
+
+//        When
+        int result = meal.sumPrice();
+
+//        Then
+        assertThat(result, equalTo(45));
+
     }
 
     private int calculatePrice(int price, int quantity){
